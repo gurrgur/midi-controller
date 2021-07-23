@@ -22,7 +22,7 @@ class ProgramMapper:
     def __init__(
         self,
         outport,
-        state_file="programs.json",
+        state_file="/etc/midi-controller/programs.json",
         in_channel=0,
         out_channel=3,
         n_loops=4,
@@ -175,9 +175,11 @@ class ProgramMapper:
 if __name__ == "__main__":
     inport_name = get_port("MidiLink Mini")
     outport_name = get_port("MidiLink Mini")
+
     logging.info(f'Using midi input  "{inport_name}".')
     logging.info(f'Using midi output "{outport_name}".')
     systemd.daemon.notify('READY=1')
+    
     with mido.open_output(outport_name) as outport, mido.open_input(
         inport_name
     ) as inport:
